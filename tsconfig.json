@@ -1,0 +1,19 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "lib": [
+      "ES2018",
+      "ES2018.Promise"
+    ],
+    "rootDir": ".",
+    "outDir": "build",
+    "target": "ES2017",
+    "strict": true
+  },
+  "include": [
+    "src/*.ts",
+    "src/**/*.ts",
+    "test/*.ts",
+    "test/**/*.ts"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "license": "Unlicense",
+  "devDependencies": {
+    "@types/jest": "^24.0.5",
+    "@types/mongoose": "^5.3.17",
+    "@types/node": "^11.9.4",
+    "gts": "^0.9.0",
+    "jest": ">=22 <24",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.1",
+    "typescript": "~3.1.0"
+  },
+  "scripts": {
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run check"
+  },
+  "dependencies": {
+    "mongoose": "^5.4.13",
+    "node": "^11.10.0"
+  }
+}
