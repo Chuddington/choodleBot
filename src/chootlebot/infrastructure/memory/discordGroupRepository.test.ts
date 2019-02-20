@@ -6,6 +6,8 @@ const testRepository: GroupRepository = DiscordGroupRepository.newInstance();
 
 test("There should be entries within the Map using a discord group",
   async () => {
+    testRepository.addEntry(Id.chootleBotGroup("10"), Id.discordGroup("100"));
+
     const { internalId: domainId, err: error } =
       testRepository.getDomainGroup(Id.discordGroup("100"));
 
@@ -15,6 +17,8 @@ test("There should be entries within the Map using a discord group",
 
 test("There should be entries within the Map using an internal group",
   async () => {
+    testRepository.addEntry(Id.chootleBotGroup("10"), Id.discordGroup("100"));
+    
     const { externalId: domainId, err: error } =
       testRepository.getExternalGroup(Id.chootleBotGroup("10"));
 

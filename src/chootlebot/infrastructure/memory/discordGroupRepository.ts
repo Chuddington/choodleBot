@@ -6,47 +6,9 @@ export class DiscordGroupRepository implements GroupRepository {
   private readonly internalToDiscord: Map<string, string>;
   private readonly discordToInternal: Map<string, string>;
 
-  private internalGroupOne = "10";
-  private internalGroupTwo = "20";
-  private internalGroupThree = "30";
-
-  private discordGroupOne = "100";
-  private discordGroupTwo = "200";
-  private discordGroupThree = "300";
-
   private constructor() {
-    this.discordToInternal = this.setupDiscordEntries();
-    this.internalToDiscord = this.setupInternalEntries();
-  }
-
-  private setupInternalEntries(): Map<string, string> {
-    const result: Map<string, string> = new Map()
-      .set(
-        this.internalGroupOne,
-        this.discordGroupOne)
-      .set(
-        this.internalGroupTwo,
-        this.discordGroupTwo)
-      .set(
-        this.internalGroupThree,
-        this.discordGroupThree);
-
-    return result;
-  }
-
-  private setupDiscordEntries(): Map<string, string> {
-    const result: Map<string, string> = new Map()
-      .set(
-        this.discordGroupOne,
-        this.internalGroupOne)
-      .set(
-        this.discordGroupTwo,
-        this.internalGroupTwo)
-      .set(
-        this.discordGroupThree,
-        this.internalGroupThree);
-
-    return result;
+    this.discordToInternal = new Map();
+    this.internalToDiscord = new Map();
   }
 
   static newInstance(): GroupRepository {
@@ -75,6 +37,20 @@ export class DiscordGroupRepository implements GroupRepository {
         err: new Error(
           `Could not obtain requested entry!  ${internalGroup.toString()}`)
       };
+  }
+
+  addEntry(internalEntry: Id, externalEntry: Id): void {
+    this.discordToInternal.set(externalEntry.getId(), internalEntry.getId());
+    this.internalToDiscord.set(internalEntry.getId(), externalEntry.getId());
+  }
+
+  removeEntry(entry: Id): void {
+    if (this.discordToInternal.has(entry.getId())) {
+      this.discordToInternal.delete(entry.getId());
+    }
+    if (this.internalToDiscord.has(entry.getId())) {
+      this.internalToDiscord.delete(entry.getId());
+    }
   }
 
 }

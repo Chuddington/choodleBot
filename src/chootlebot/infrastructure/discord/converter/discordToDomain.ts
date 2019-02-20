@@ -3,7 +3,7 @@ import { Id } from "../../../domain/user/id";
 
 import { UnaryConverter } from "../../interfaces/unaryConverter";
 
-export class DiscordGroupConverter implements UnaryConverter<Id> {
+export class DiscordToDomainGroupConverter implements UnaryConverter<Id> {
 
   private readonly repository: GroupRepository;
 
@@ -11,26 +11,8 @@ export class DiscordGroupConverter implements UnaryConverter<Id> {
     this.repository = repository;
   }
 
-  static instanceOf(repository: GroupRepository): DiscordGroupConverter {
-    return new DiscordGroupConverter(repository);
-  }
-
-  /**
-   * Method to convert a ChootleBot Group ID into a Discord Group ID
-   */
-  from(internalGroup: Id): { source?: Id, err?: Error } {
-    if (!internalGroup.isChootleBotGroup()) {
-      return {
-        err: new TypeError(
-          `The passed parameter needs to be a Domain Group ID!  ${internalGroup.toString()}`)
-      };
-    }
-
-    const repoResult = this.repository.getExternalGroup(internalGroup);
-
-    return (repoResult.externalId === undefined)
-      ? { err: repoResult.err }
-      : { source: repoResult.externalId! };
+  static instanceOf(repository: GroupRepository): DiscordToDomainGroupConverter {
+    return new DiscordToDomainGroupConverter(repository);
   }
 
   /**
